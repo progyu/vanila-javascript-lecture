@@ -79,18 +79,18 @@ function alphaString46(s) {
 }
 
 // 단축평가
-// function alphaString46(s) {
-//   return !isNaN(s) && (s.length > 3 && s.length < 7);
-// }
+function alphaString46Two(s) {
+  return !isNaN(s) && (s.length > 3 && s.length < 7);
+}
 
 // if문
-// function alphaString46(s) {
-//     if (isNaN(s)) return false;
+function alphaString46Three(s) {
+  if (isNaN(s)) return false;
 
-//     if (s.length > 3 && s.length < 7) return true;
+  if (s.length > 3 && s.length < 7) return true;
 
-//     return false;
-// }
+  return false;
+}
 
 
 console.log(alphaString46('1234')); // true
@@ -99,3 +99,17 @@ console.log(alphaString46('723')); // false
 console.log(alphaString46('a234')); // false
 console.log(alphaString46('')); // false
 console.log(alphaString46()); // false
+
+console.log(alphaString46Two('1234')); // true
+console.log(alphaString46Two('9014')); // true
+console.log(alphaString46Two('723')); // false
+console.log(alphaString46Two('a234')); // false
+console.log(alphaString46Two('')); // false
+console.log(alphaString46Two()); // false
+
+console.log(alphaString46Three('1234')); // true
+console.log(alphaString46Three('9014')); // true
+console.log(alphaString46Three('723')); // false
+console.log(alphaString46Three('a234')); // false
+console.log(alphaString46Three('')); // false
+console.log(alphaString46Three()); // false
