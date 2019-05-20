@@ -55,11 +55,11 @@
 // ];
 
 // function getValues(key) { return todos.map(todo => todo[key]); }
-// // function getValues(key) {
-// //   return todos.map(function (todo) {
-// //     return todo[key];
-// //   });
-// // }
+// function getValues(key) {
+//   return todos.map(function (todo) {
+//     return todo[key];
+//   });
+// }
 
 // console.log(getValues('id')); // [3, 2, 1]
 // console.log(getValues('content')); // [ 'HTML', 'CSS', 'Javascript' ]
@@ -149,22 +149,22 @@
 
 // todos에서 삭제할 요소의 id를 인수로 전달하면 해당 요소를 삭제하는 함수를 작성하라.
 
-let todos = [
-  { id: 3, content: 'HTML', completed: false },
-  { id: 2, content: 'CSS', completed: true },
-  { id: 1, content: 'Javascript', completed: false }
-];
+// let todos = [
+//   { id: 3, content: 'HTML', completed: false },
+//   { id: 2, content: 'CSS', completed: true },
+//   { id: 1, content: 'Javascript', completed: false }
+// ];
 
-function removeTodo(id) {
-  todos = todos.filter(todo => todo.id !== id);
-  //   todos = todos.filter(function (todo) {
-  //     return todo.id !== id;
-  //   });
-}
+// function removeTodo(id) {
+//   // todos = todos.filter(todo => todo.id !== id);
+//   todos = todos.filter(function (todo) {
+//     return todo.id !== id; //todo.id가 의미하는건 객체의 키로 값을 가져오는 것, !== id에서 id는 인수로 받은 2를 의미
+//   });
+// }
 
-removeTodo(2);
+// removeTodo(2);
 
-console.log(todos);
+// console.log(todos);
 /*
 [
   { id: 3, content: 'HTML', completed: false },
@@ -178,3 +178,78 @@ console.log(todos);
 // todos에서 대상 요소의 id를 인수로 전달하면 해당 요소의 completed 프로퍼티 값을 반전하는 함수를 작성하라.
 
 // 단, Object.assign를 사용하도록 한다.
+
+// let todos = [
+//   { id: 3, content: 'HTML', completed: false },
+//   { id: 2, content: 'CSS', completed: true },
+//   { id: 1, content: 'Javascript', completed: false }
+// ];
+
+// function toggleCompletedById(id) {
+//  todos = todos.map(todo => Object.assign({}, todo, todo.id === id ? { completed: !todo.completed } : todo.completed));
+//  todos = todos.map(function (todo) {
+//    return Object.assign({}, todo, todo.id === id ? { completed: !todo.completed } : todo.completed);
+// });
+// }
+// todo.id === id ? !(todo.completed) : !(todo.completed
+// toggleCompletedById(2);
+
+// console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: false },
+  { id: 1, content: 'Javascript', completed: false }
+]
+*/
+
+
+// # 7. 모든 요소의 completed 프로퍼티 값을 true로 설정
+
+// todos의 모든 요소의  completed 프로퍼티 값을 true로 설정하는 함수를 작성하라.
+
+// 단, Object.assign를 사용하도록 한다.
+
+// let todos = [
+//   { id: 3, content: 'HTML', completed: false },
+//   { id: 2, content: 'CSS', completed: true },
+//   { id: 1, content: 'Javascript', completed: false }
+// ];
+
+// function toggleCompletedAll() {
+// todos = todos.map(todo => Object.assign({}, todo, { completed: true }));
+// todos = todos.map(function (todo) {
+//   return Object.assign({}, todo, { completed: true });
+// })
+// }
+
+// toggleCompletedAll();
+
+// console.log(todos);
+/*
+[
+  { id: 3, content: 'HTML', completed: true },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 1, content: 'Javascript', completed: true }
+]
+*/
+
+// # 8. completed 프로퍼티의 값이 true인 요소의 갯수 구하기
+// todos에서 완료(completed: true)한 할일의 갯수를 구하는 함수를 작성하라.
+
+// 단, for 문, Array#forEach는 사용하지 않도록 하자.
+
+// const todos = [
+//   { id: 3, content: 'HTML', completed: false },
+//   { id: 2, content: 'CSS', completed: true },
+//   { id: 1, content: 'Javascript', completed: false }
+// ];
+
+// function countCompletedTodos() {
+//   return todos.filter(todo => todo.completed === true).length;
+//   // return todos.filter(function (todo) {
+//   //   return todo.completed === true;
+//   // }).length;
+// }
+
+// console.log(countCompletedTodos()); // 1
