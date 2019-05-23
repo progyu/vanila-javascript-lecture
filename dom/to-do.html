@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TODO</title>
+  <style>
+    .cancel {
+      text-decoration: line-through;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" class="input-todo" placeholder="Enter todo!">
+  <button class="add">Add</button>
+  <ul class="todos"></ul>
+  <script>
+    const $inputTodo = document.querySelector('.input-todo');
+    const $add = document.querySelector('.add');
+    const $todos = document.querySelector('.todos');
+    // console.log($inputTodo, $add, $todos);
+
+    function addTodo(newTodo) {
+      $todos.innerHTML += `<li class="todo"><input type="checkbox" class="ck"><span>${newTodo}</span><button class="remove">X</button></li>`;
+    }
+
+    function removeTodo(childNode) {
+      $todos.removeChild(childNode);
+    }
+
+    function cancelLine(siblingNode) {
+      // siblingNode.style.textDecoration = 'line-through';
+      // siblingNode.style.textDecoration = 'none';
+      siblingNode.classList.toggle('cancel');
+    }
+
+    $add.onclick = function () {
+      // console.log($inputTodo.value);
+      addTodo($inputTodo.value);
+      $inputTodo.value = '';
+    };
+
+    $todos.addEventListener('click', function (e) {
+      // console.log(e.target.parentNode);
+      // remove todo!
+      // if (e.target.parentNode.nodeName === 'LI') removeTodo(e.target.parentNode);
+      const target = e.target.parentNode;
+      if (target.classList.contains('todo') && e.target.classList.contains('remove')) removeTodo(target);
+    });
+
+    $todos.addEventListener('change', function (e) {
+      // console.log(e.target);
+      const sibTarget = e.target.nextElementSibling;
+      // console.log(sibTarget);
+      if (e.target.classList.contains('ck')) cancelLine(sibTarget);
+    });
+  </script>
+</body>
+
+</html>

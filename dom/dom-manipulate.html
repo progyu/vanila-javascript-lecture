@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulate</title>
+    <style>
+        /* ui 가상 선택자 */
+        .ck:checked+span {
+            color: red;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: royalblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul>
+            <li id="one" class="red">Seoul</li>
+            <li id="two" class="red">London</li>
+            <li id="three" class="red">Newyork</li>
+            <li id="four">Tokyo</li>
+        </ul>
+        <ul class="area">
+
+        </ul>
+    </div>
+    <input type="text">
+    <button class="click">click me</button>
+    <!-- <button class="click" onclick="foo()">click me</button> -->
+    <script>
+        // 텍스트 수정
+        const textNode = one.firstChild;
+        console.log(textNode.nodeValue);
+        textNode.nodeValue = 'Busan';
+
+
+
+        const input = document.querySelector('input[type=text]');
+        console.log(input);
+
+        // value 어트리뷰트가 존재하지 않으면
+        if (!input.hasAttribute('value')) {
+            // value 어트리뷰트를 추가하고 값으로 'hello!'를 설정
+            input.setAttribute('value', 'hello!');
+        }
+
+        // value 어트리뷰트 값을 취득
+        console.log(input.getAttribute('value')); // hello!
+
+        // value 어트리뷰트를 제거
+        input.removeAttribute('value');
+
+        // value 어트리뷰트의 존재를 확인
+        console.log(input.hasAttribute('value')); // false
+
+
+        // // html 요소 추가
+        const area = document.querySelector('.area');
+        area.innerHTML += `<li id="one" class="red">Seoul</li>
+            <li id="two" class="red">hi</li>
+            <li id="three" class="red">Newyork</li>
+            <li id="four">Tokyo</li>`;
+
+
+
+        // // html의 새로운 요소를 추가할 때는 innerHTML을 사용한다.
+        // const one = document.getElementById('one');
+
+        // // 마크업이 포함된 콘텐츠 취득
+        // console.log(one.innerHTML); // Seoul
+
+        // // 마크업이 포함된 콘텐츠 변경
+        // one.innerHTML += '<em class="blue">, Korea</em>';
+
+        // // 마크업이 포함된 콘텐츠 취득
+        // console.log(one.innerHTML); // Seoul <em class="blue">, Korea</em>
+
+
+        // style 요소 변경
+
+        area.style.fontSize = '1.5em';
+
+        const btn = document.querySelector('.click');
+        console.dir(btn);
+        // 인라인 이벤트 핸들러 방식
+        // function foo() {
+        //     console.log('clicked');
+        // }
+
+        // 이벤트 핸들러 프로퍼티 방식
+        // btn.onclick = function () {
+        //     console.log('clicked');
+        // };
+
+        // addEventListener 메소드 방식
+        btn.addEventListener('click', function () {
+            console.log('clicked');
+        });
+
+    </script>
+</body>
+
+</html>

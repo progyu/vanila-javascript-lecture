@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DOM</title>
+    <style>
+        /* ui 가상 선택자 */
+        .ck:checked+span {
+            color: red;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: royalblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul>
+            <li id="one" class="red">Seoul</li>
+            <li id="two" class="red">London</li>
+            <li id="three" class="red">Newyork</li>
+            <li id="four">Tokyo</li>
+        </ul>
+    </div>
+    <!-- <input type="text"> -->
+    <label> <input type="checkbox" class="ck"><span>Hello</span></label>
+    <script>
+        // 탐색
+        // const ul = document.querySelector('ul');
+        // console.log(ul.firstChild);  // 텍스트 노드 포함
+        // console.log(ul.lastElementChild); // 요소 노드만
+        // console.log(ul.lastElementChild.previousElementSibling); // 요소 노드만
+        // console.log(ul.firstElementChild); // 요소 노드만
+        // console.log(ul.firstElementChild.nextElementSibling); // 요소 노드만
+        // console.log(ul.childNodes); // 텍스트 노드 포함
+        // console.log(ul.children); // 요소 노드만
+
+
+
+        // const elem = document.getElementById('one');
+        // const elem = document.querySelector('input[type=checkbox]');
+        // const elem = document.querySelector('li.red');
+        const elem = document.querySelectorAll('.red');
+
+
+        console.log(elem);
+        // console.log(elem.parentNode); // 부모 노드
+        // console.log(elem.__proto__);
+        // console.log(elem).__proto__.__proto__;
+        // 클래스 어트리뷰트의 값을 변경한다.
+        // elem.className = 'blue';  // 프로퍼티 , 값을 덮어 쓴다.
+
+
+        // // forEach로 순회
+        // [...elem].forEach(element => {
+        //     // class를 다룰 때 아주 유용
+        //     element.classList.add('blue');  // 메소드 , 값을 덮어 쓰지 않고 추가한다.
+        // });
+
+
+        // [...elem].forEach(element => {
+        //     // class 어트리뷰트 값 확인
+        //     if (element.classList.contains('red')) {
+        //         // class 어트리뷰트 값 변경한다.
+        //         element.classList.replace('red', 'blue');
+        //     }
+        // });
+
+        [...elem].forEach(element => {
+            element.classList.toggle('red');
+            element.classList.add('blue');
+            // element.classList.remove('blue');  // 메소드
+        });
+    </script>
+</body>
+
+</html>
