@@ -186,13 +186,13 @@
 // ];
 
 // function toggleCompletedById(id) {
-//  todos = todos.map(todo => Object.assign({}, todo, todo.id === id ? { completed: !todo.completed } : todo.completed));
-//  todos = todos.map(function (todo) {
-//    return Object.assign({}, todo, todo.id === id ? { completed: !todo.completed } : todo.completed);
+//   todos = todos.map(todo => Object.assign({}, todo, todo.id === id ? { completed: !todo.completed } : todo.completed));
+// todos = todos.map(function (todo) {
+//   return Object.assign({}, todo, todo.id === id ? { completed: !todo.completed } : todo.completed);
 // });
 // }
-// todo.id === id ? !(todo.completed) : !(todo.completed
-// toggleCompletedById(2);
+// todo.id === id ? !(todo.completed) : !(todo.completed)
+// toggleCompletedById(3);
 
 // console.log(todos);
 /*
@@ -239,17 +239,17 @@
 
 // 단, for 문, Array#forEach는 사용하지 않도록 하자.
 
-// const todos = [
-//   { id: 3, content: 'HTML', completed: false },
-//   { id: 2, content: 'CSS', completed: true },
-//   { id: 1, content: 'Javascript', completed: false }
-// ];
+const todos = [
+  { id: 3, content: 'HTML', completed: false },
+  { id: 2, content: 'CSS', completed: true },
+  { id: 1, content: 'Javascript', completed: false }
+];
 
-// function countCompletedTodos() {
-//   return todos.filter(todo => todo.completed === true).length;
-//   // return todos.filter(function (todo) {
-//   //   return todo.completed === true;
-//   // }).length;
-// }
+function countCompletedTodos() {
+  return todos.filter(todo => todo.completed).length;
+  // return todos.filter(function (todo) {
+  //   return todo.completed;
+  // }).length;
+}
 
-// console.log(countCompletedTodos()); // 1
+console.log(countCompletedTodos()); // 1

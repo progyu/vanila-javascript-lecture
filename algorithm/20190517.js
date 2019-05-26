@@ -14,7 +14,6 @@ function numPY(s) {
   return filterP.length === filterY.length;
 }
 
-
 // function numPY(s) {
 //   const str = s ? s.toUpperCase() : '';
 //   let cntP = 0;
