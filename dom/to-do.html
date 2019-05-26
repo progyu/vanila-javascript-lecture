@@ -5,17 +5,73 @@
   <meta charset="UTF-8">
   <title>TODO</title>
   <style>
+    @font-face {
+      font-family: 'NotoSansCJKkr-Black';
+      src: url(../fonts/NotoSansCJKkr-Black.otf) format('truetype');
+    }
+
+    body {
+      margin: 0;
+      font-family: NotoSansCJKkr-Black, Georgia, 'Times New Roman', Times, serif;
+    }
+
     .cancel {
       text-decoration: line-through;
-      color: red;
+      color: orangered;
+    }
+
+    .backimg {
+      background: url(../images/wall.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+    }
+
+    .container {
+      width: 500px;
+      margin: 0 auto;
+      padding-top: 30vh;
+    }
+
+    .todo-wrapper {
+      width: 300px;
+      margin: 0 auto;
+      text-align: center;
+      color: white;
+    }
+
+    .title {
+      margin: 0;
+      padding-bottom: 15px;
+      font-size: 2.5em;
+      font-weight: 900;
+    }
+
+    .todos {
+      text-align: left;
+      list-style: none;
+      padding-top: 10px;
+    }
+
+    .todo {
+      margin-bottom: 10px;
+      font-size: 1.2em;
     }
   </style>
 </head>
 
 <body>
-  <input type="text" class="input-todo" placeholder="Enter todo!">
-  <button class="add">Add</button>
-  <ul class="todos"></ul>
+  <div class="backimg">
+    <div class="container">
+      <div class="todo-wrapper">
+        <h1 class="title">Welcome! </h1>
+        <input type="text" class="input-todo" placeholder="Enter todo!" autofocus>
+        <button class="add">Add</button>
+        <ul class="todos"></ul>
+      </div>
+    </div>
+  </div>
   <script>
     // 변수 앞에 '$' 표시는 html 요소라는 것을 표시하기 위함.
     const $inputTodo = document.querySelector('.input-todo');
@@ -24,8 +80,28 @@
     // console.log($inputTodo, $add, $todos);
 
     function addTodo(newTodo) {
-      $todos.innerHTML += `<li class="todo"><input type="checkbox" class="ck"><span>${newTodo}</span><button class="remove">❌</button></li>`;
+      const createLi = document.createElement('li');
+      const createInput = document.createElement('input');
+      const createSpan = document.createElement('span');
+      const delBtn = document.createElement('button');
+      const todoText = document.createTextNode(newTodo);
+      const delText = document.createTextNode('❌');
+      createLi.classList.add('todo');
+      createInput.classList.add('ck');
+      delBtn.classList.add('remove');
+      createInput.setAttribute('type', 'checkbox');
+      createSpan.appendChild(todoText);
+      delBtn.appendChild(delText);
+      createLi.appendChild(createInput);
+      createLi.appendChild(createSpan);
+      createLi.appendChild(delBtn);
+      $todos.appendChild(createLi);
     }
+
+    // 새로 list를 추가할 시 checkbox가 해제됨. 왜 그런 문제가 발생하는 것인가?
+    // function addTodo(newTodo) {
+    //   $todos.innerHTML += `<li class="todo"><input type="checkbox" class="ck"><span>${newTodo}</span><button class="remove">❌</button></li>`;
+    // }
 
     function removeTodo(childNode) {
       $todos.removeChild(childNode);
