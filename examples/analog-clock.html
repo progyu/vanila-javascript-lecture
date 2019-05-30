@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Analog Clock</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+    .analog-clock {
+      position: relative;
+      margin: 100px auto 0;
+      width: 200px;
+      height: 200px;
+      background-color: aliceblue;
+      border-radius: 50%;
+    }
+
+    .hand {
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: 100px;
+      transform-origin: 100% 100%;
+    }
+
+    .hour {
+      background-color: #f44336;
+    }
+
+    .minute {
+      background-color: #3f51b5;
+    }
+
+    .second {
+      background-color: #9e9e9e;
+    }
+
+    .center-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 12px;
+      height: 12px;
+      background-color: black;
+      border-radius: 50%;
+    }
+
+    .digital-clock {
+      position: absolute;
+      top: 350px;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      font-size: 2em;
+      font-family: 'Source Code Pro', monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="clock">
+    <div class="analog-clock">
+      <div class="hour hand"></div>
+      <div class="minute hand"></div>
+      <div class="second hand"></div>
+      <div class="center-circle"></div>
+    </div>
+    <div class="digital-clock"></div>
+  </div>
+
+  <script>
+    (function () {
+      function addZero(time) {
+        return time < 10 ? `0${time}` : `${time}`;
+      }
+
+      function getTime() {
+        const $digitalClock = document.querySelector('.digital-clock');
+        const $hour = document.querySelector('.hour');
+        const $minute = document.querySelector('.minute');
+        const $second = document.querySelector('.second');
+        const date = new Date();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        const second = date.getSeconds();
+        $second.style.transform = `rotateZ(${second * 360 / 60}deg)`;
+        $minute.style.transform = `rotateZ(${minute * 360 / 60}deg)`;
+        $hour.style.transform = `rotateZ(${hour * 360 / 60}deg)`;
+
+        $digitalClock.innerHTML = `${addZero(hour)}:${addZero(minute)}:${addZero(second)}`;
+      }
+
+      function init() {
+        setInterval(getTime, 1000);
+      }
+
+      init();
+    }());
+  </script>
+</body>
+
+</html>
