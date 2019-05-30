@@ -50,24 +50,22 @@
       let minutes = '00';
       let repeat;
 
-      function zero(time) {
+      function addZero(time) {
         return time !== '00' && time < 10 ? `0${time}` : time;
       }
 
-
       function start() {
         mili++;
-        if (mili === 100) {
+        if (mili > 99) {
           mili = '00';
           mili++;
           seconds++;
         }
-        if (seconds === 60) {
+        if (seconds > 59) {
           seconds = '00';
-          seconds++;
           minutes++;
         }
-        $display.textContent = `${zero(minutes)}:${zero(seconds)}:${zero(mili)}`;
+        $display.textContent = `${addZero(minutes)}:${addZero(seconds)}:${addZero(mili)}`;
       }
 
       function stop() {
