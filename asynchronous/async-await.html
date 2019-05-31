@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Async & Await-CRUD</title>
+</head>
+
+<body>
+  <pre class="result"></pre>
+  <script>
+    const $result = document.querySelector('.result');
+    const render = (content) => { $result.innerHTML = JSON.stringify(content, null, 2); };
+
+    // GET-All
+    (async function () {
+      const res = await fetch('http://localhost:3000/todos');
+      const todos = await res.json();
+      render(todos);
+    }());
+
+    // GET-By-Id
+    // (async function () {
+    //   const res = await fetch('http://localhost:3000/todos/1');
+    //   const todos = await res.json();
+    //   render(todos);
+    // }());
+
+    // POST
+    // (async function () {
+    //   const res = await fetch('http://localhost:3000/todos', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ id: 4, content: 'React', completed: true })
+    //   });
+    //   const todos = await res.json();
+    //   render(todos);
+    // }());
+
+    // DELETE
+    // (async function () {
+    //   const res = await fetch('http://localhost:3000/todos/4', {
+    //     method: 'DELETE'
+    //   });
+    //   const todos = await res.json();
+    //   render(todos);
+    // }());
+
+    // PUT
+    // (async function () {
+    //   const res = await fetch('http://localhost:3000/todos/3', {
+    //     method: 'PUT',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ id: 3, content: 'Angular', completed: true })
+    //   });
+    //   const todos = await res.json();
+    //   render(todos);
+    // }());
+
+    // PATCH
+    // (async function () {
+    //   const res = await fetch('http://localhost:3000/todos/3', {
+    //     method: 'PATCH',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ completed: false })
+    //   });
+    //   const todos = await res.json();
+    //   render(todos);
+    // }());
+  </script>
+</body>
+
+</html>
