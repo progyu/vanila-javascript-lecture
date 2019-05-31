@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ajax-CRUD</title>
+</head>
+
+<body>
+  <pre class="result"></pre>
+  <script>
+    const $result = document.querySelector('.result');
+    const render = (content) => { $result.innerHTML = JSON.stringify(content, null, 2); };
+    const ajax = (method, url, callback, payload) => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.open(method, url);
+
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.send(JSON.stringify(payload));
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+        if (xhr.status >= 200 && xhr.status < 400) {
+          callback(JSON.parse(xhr.response));
+        } else {
+          console.error();
+        }
+      };
+    };
+
+    // GET-All
+    ajax('GET', 'http://localhost:3000/todos', render);
+    // GET-By-Id
+    // ajax('GET', 'http://localhost:3000/todos/2', render);
+    // POST
+    // ajax('POST', 'http://localhost:3000/todos', render, { id: 4, content: 'Angular', completed: true });
+    // DELETE
+    // ajax('DELETE', 'http://localhost:3000/todos/4', render);
+    // PUT
+    // ajax('PUT', 'http://localhost:3000/todos/4', render, { id: 4, content: 'React', completed: false });
+    // PATCH
+    // ajax('PATCH', 'http://localhost:3000/todos/4', render, { completed: true });
+  </script>
+</body>
+
+</html>
