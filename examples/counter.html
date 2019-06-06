@@ -43,22 +43,24 @@
 
   <script>
     (function () {
-      const counter = function () {
-        const $container = document.querySelector('.container');
-        const $counter = document.querySelector('.counter');
-        let countState = 0;
+      const $counter = document.querySelector('.counter');
 
-        const increase = $container.addEventListener('click', (e) => {
-          if (e.target.classList.contains('increase')) {
-            countState++;
-          } else if (e.target.classList.contains('decrease')) {
-            if (countState > 0) countState--;
+      const counter = (function () {
+        let num = 0;
+
+        return {
+
+          increase() {
+            $counter.textContent = ++num;
+          },
+          decrease() {
+            if (num > 0) $counter.textContent = --num;
           }
-          $counter.innerHTML = countState;
-        });
-        return increase;
-      };
-      counter();
+        };
+      }());
+
+      document.querySelector('.increase').onclick = counter.increase;
+      document.querySelector('.decrease').onclick = counter.decrease;
     }());
   </script>
 </body>
