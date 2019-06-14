@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Draggable Range Slider</title>
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: #292c2f;
+      font-family: monospace;
+      overflow: hidden;
+    }
+
+    header {
+      height: 70px;
+      line-height: 70px;
+      background: #252525;
+    }
+
+    .range-container {
+      position: absolute;
+      left: 30px;
+      top: 25px;
+      width: 300px;
+      height: 20px;
+    }
+
+    .range {
+      position: relative;
+      margin: 0 10px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .range-track {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 4px;
+      background: #424242;
+      border-radius: 4px;
+    }
+
+    .range-track.fill {
+      width: 0%;
+      background: #4ac1ff;
+    }
+
+    .range-handle {
+      position: absolute;
+      left: -10px;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .gradient {
+      position: absolute;
+      width: 100%;
+      height: calc(100% - 70px);
+      /* 마우스 드래그에 의해 deg 값이 변경되어야 함 */
+      background-image: linear-gradient(0deg, #f1a829, #f14429);
+    }
+
+    .gradient-val {
+      color: #ccc;
+      font-size: 14px;
+      font-weight: 800;
+      padding-left: 350px;
+      user-select: none;
+    }
+
+    .gradient-val span {
+      color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="range-container">
+      <div class="range">
+        <!--드래그로 이동할 길?-->
+        <div class="range-track"></div>
+        <div class="range-track fill"></div>
+        <!--마우스로 드래그 할 동그란 요소-->
+        <span class="range-handle"></span>
+      </div>
+    </div>
+    <div class="gradient-val">
+      background-image: linear-gradient(
+      <!-- 마우스 드래그에 의해 deg 값이 변경되어야 함  -->
+      <span class="gradient-angle">0</span>deg,
+      <span style="color: #f1a829;">#f1a829</span>,
+      <span style="color: #f14429;">#f14429</span> )
+    </div>
+  </header>
+  <div class="gradient"></div>
+  <script>
+    // 드래그 전체를 관장
+    const $range = document.querySelector('.range');
+    // 드래그로 이동할 길 요소
+    const $track = document.querySelector('.range-track');
+    // 드래그 하면 드래그 한 부분의 색이 하늘색으로
+    const $fill = document.querySelector('.range-track.fill');
+    // 마우스로 드래그 할 동그란 요소
+    const $handle = document.querySelector('.range-handle');
+    // 마우스 드래그에 의해 스타일 deg 값이 변경되어야 하는 담긴 요소
+    const $gradient = document.querySelector('.gradient');
+    // 마우스 드래그에 의해 화면에 표시되는 deg 값이 변경되어야 하는 dom 요소
+    const $gradientAngle = document.querySelector('.gradient-angle');
+
+    // .range-track 요소의 정보
+    // Element.getBoundingClientRect() 메서드는 요소의 크기와 요소의 viewport에서의 상대적인 위치를 반환합니다
+    // rect is a DOMRect object with eight properties: left, top, right, bottom, x, y, width, height
+    // DOMRect{left: 40, right: 320, width: 280…}
+    const { left, right, width } = $track.getBoundingClientRect();
+    // console.log($track.getBoundingClientRect());
+    /**
+     * mousedown, mousemove 이벤트 핸들러
+     * 1. 뷰포트를 기준으로 한 마우스 포인터의 x축 위치를 바탕으로 .range-handle 요소를 수평 이동하고 .fill 요소의 너비를 변경한다.
+     * 2. .gradient 요소의 background-image를 변경한다.
+     *
+     * @param {MouseEvent} e - 이벤트 객체
+     */
+    function rangeHandler(e) {
+      if (e.clientX < left || e.clientX > right) return;
+      const offsetX = e.clientX - left;
+      const deg = Math.round(offsetX * (360 / width));
+      $handle.style.transform = `translate3d(${offsetX}px, 0, 0)`;
+      $fill.style.width = `${offsetX * (100 / width)}%`;
+      $gradientAngle.textContent = `${deg}`;
+      $gradient.style.backgroundImage = `linear-gradient(${deg}deg, #f1a829, #f14429)`;
+    }
+
+    // .range-track 요소의 좌우 영역 내에서 발생한 이벤트만 캐치하기 위해 .range 요소에 이벤트를 등록한다.
+    // margin 영역은 이벤트를 발생시키지 않는다.
+    $range.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+
+      rangeHandler(e);
+
+      // mousedown 이벤트가 발생한 상태에서 mousemove 이벤트가 발생
+      $range.addEventListener('mousemove', rangeHandler);
+    });
+
+    // mouseup 이벤트가 발생하면 mousemove 이벤트를 삭제한다.
+    // $range 밖에서 발생한 mouseup 이벤트도 처리하기 위해 document의 mouseup 이벤트에 이벤트 핸들러를 등록한다
+    document.addEventListener('mouseup', () => {
+      $range.removeEventListener('mousemove', rangeHandler);
+    });
+  </script>
+</body>
+
+</html>
