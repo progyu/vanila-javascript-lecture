@@ -69,14 +69,13 @@
     </div>
   </div>
   <script>
-    const $container = document.querySelector('.container');
-    $container.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('toggle')) return;
-      $container.classList.toggle('active');
-    });
-    // const $toggle = document.querySelector('.toggle');
-    // const $container = document.querySelector('.container');
-    // $toggle.addEventListener('click', () => $container.classList.toggle('active'));
+    (function () {
+      const $container = document.querySelector('.container');
+      $container.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('toggle')) return;
+        $container.classList.toggle('active');
+      });
+    }());
   </script>
 </body>
 
