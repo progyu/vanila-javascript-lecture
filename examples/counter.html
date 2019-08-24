@@ -42,22 +42,54 @@
   </div>
 
   <script>
+    // (function () {
+    //   const $counter = document.querySelector('.counter');
+
+    //   const counter = (function () {
+    //     let num = 0;
+
+    //     return {
+
+    //       increase() {
+    //         $counter.textContent = ++num;
+    //       },
+    //       decrease() {
+    //         if (num > 0) $counter.textContent = --num;
+    //       }
+    //     };
+    //   }());
+
+    //   document.querySelector('.increase').onclick = counter.increase;
+    //   document.querySelector('.decrease').onclick = counter.decrease;
+    // }());
     (function () {
       const $counter = document.querySelector('.counter');
 
-      const counter = (function () {
+      const Counter = (function () {
+        // 카운트 상태를 유지하기 위한 자유 변수
         let num = 0;
 
-        return {
+        // 생성자 함수
+        function Num() {
+          // this.num = 0; // 프로퍼티는 public이므로 정보 은닉이 되지 않는다.
+        }
 
-          increase() {
-            $counter.textContent = ++num;
-          },
-          decrease() {
-            if (num > 0) $counter.textContent = --num;
-          }
+        // 생성자 함수 프로토 타입의 메소드
+        Num.prototype.increase = function () {
+          $counter.textContent = ++num;
         };
+
+        Num.prototype.decrease = function () {
+          if (num <= 0) return;
+          $counter.textContent = --num;
+        };
+
+        // 생성자 함수를 리턴
+        return Num;
       }());
+
+      // 리턴된 생성자 함수를 갖고 있는 Conter를 생성자 함수로 호출
+      const counter = new Counter();
 
       document.querySelector('.increase').onclick = counter.increase;
       document.querySelector('.decrease').onclick = counter.decrease;
