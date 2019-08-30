@@ -19,6 +19,7 @@ function countUncompletedTodos() {
   document.querySelector('.active-todos').innerText = todos.filter(todo => !todo.completed).length;
 }
 
+
 function render() {
   const _todos = todos.filter((todo) => {
     if (navState === 'active') return !todo.completed;
