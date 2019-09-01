@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Todos V0-2</title>
+  <style>
+    body {
+      width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .input-todo {
+      padding-top: 30px;
+      width: 500px;
+      height: 60px;
+      font-size: 40px;
+      border: 0;
+    }
+
+    .input-todo:focus {
+      outline: none;
+    }
+
+    li {
+      text-align: left;
+      font-size: 25px;
+      list-style: none;
+    }
+
+    li input[type=checkbox] {
+      transform: scale(1.5);
+      vertical-align: middle;
+    }
+
+    .remove {
+      transform: scale(1.2);
+      vertical-align: middle;
+    }
+
+    .cancel-line {
+      text-decoration: line-through;
+      color: orangered;
+    }
+
+    /* input[type=checkbox]:checked + span {
+    text-decoration: line-through;
+  } */
+  </style>
+</head>
+
+<body>
+  <input class="input-todo" placeholder="What needs to be done?" autofocus>
+  <ul class="todos"></ul>
+  <script>
+    let todos = [
+      { id: 1, content: 'HTML', completed: true },
+      { id: 2, content: 'CSS', completed: true },
+      { id: 3, content: 'Javascript', completed: false }
+    ];
+
+    const $todos = document.querySelector('.todos');
+    const $inputTodo = document.querySelector('.input-todo');
+
+    function render() {
+      let html = '';
+      todos.forEach(({ id, content, completed }) => {
+        html += `<li id="${id}"><input type="checkbox" ${completed ? 'checked' : ''}><span>${content}</span><button class="remove">X</button></li>`;
+      });
+
+      $todos.innerHTML = html;
+    }
+
+    render();
+
+    function generateId() {
+      return todos.length ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
+    }
+
+
+    $todos.onclick = (e) => {
+      if (!e.target.classList.contains('remove')) return;
+      todos = todos.filter(todo => todo.id !== +e.target.parentNode.id);
+      render();
+    };
+
+    $todos.onchange = (e) => {
+      const id = +e.target.parentNode.id;
+      todos = todos.map(todo => (todo.id === id ? Object.assign({}, todo, { completed: !todo.completed }) : todo));
+      render();
+    };
+
+    $inputTodo.onkeyup = (e) => {
+      const content = $inputTodo.value.trim();
+      if (content === '' || e.keyCode !== 13) return;
+      $inputTodo.value = '';
+      todos = [{ id: generateId(), content, completed: false }, ...todos];
+      render();
+    };
+  </script>
+</body>
+
+</html>
