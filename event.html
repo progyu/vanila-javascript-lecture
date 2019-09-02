@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul class="nav">
+    <li id="1" class="nav-item">A</li>
+    <li id="2" class="nav-item">B</li>
+    <li id="3" class="nav-item">C</li>
+  </ul>
+
+  <script>
+    // document.querySelector('.nav').onclick = function (e) {
+    //   // if (e.target.nodeName !== 'LI') return;
+    //   if (!e.target.classList.contains('nav-item')) return;
+    //   console.log(e.target);
+    // };
+    const $nav = document.querySelector('.nav');
+    $nav.addEventListener('click', e => console.log(e.target), true);
+  </script>
+</body>
+
+</html>
